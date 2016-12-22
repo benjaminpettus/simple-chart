@@ -2,24 +2,26 @@
 const transformJson = json => {
   return {
     labels: json.data.map( city => city.city ),
-    datasets: [{
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)'
-      ],
-      borderWidth: 1,
-      data: json.data.map( city => city.population )
-    }]
-  }}
+    datasets: [
+        {
+            backgroundColor: ["#80f442", "#f45c42", "#4268f4", '#ee42f4'],
+            strokeColor:["rgba(0,10,220,0.5)","rgba(220,0,10,0.5)"],
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: json.data.map(city => city.population)
+        }]
+
+  }
+}
 
 const renderChart = data => {
   const chartContext = document.getElementById( 'citiesChart' ).getContext( '2d' )
-  new Chart( chartContext ).Bar( data )
+  new Chart.Bar( chartContext , {
+    data: data
+  });
 }
+
+
 
 fetch( '/api/cities' )
   .then( response => response.json() )

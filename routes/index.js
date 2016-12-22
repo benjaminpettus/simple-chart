@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../queries');
+var d3 = require("d3");
 
 
 /* GET home page. */
