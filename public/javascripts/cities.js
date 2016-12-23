@@ -1,16 +1,34 @@
+const randomColorGenerator = function () {
+  return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+};
 
 const transformJson = json => {
   return {
     labels: json.data.map( city => city.city ),
     datasets: [
         {
-            backgroundColor: ["#80f442", "#f45c42", "#4268f4", '#ee42f4'],
+            backgroundColor: "rgba(0,10,220,0.5)",
             strokeColor:["rgba(0,10,220,0.5)","rgba(220,0,10,0.5)"],
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
             data: json.data.map(city => city.population)
+        },
+        {
+            type: 'line',
+            backgroundColor: "rgba(220,0,10,0.5)",
+            strokeColor:["rgba(0,10,220,0.5)","rgba(220,0,10,0.5)"],
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: json.data.map(city => city.median_home_price)
+        },
+        {
+            type: 'line',
+            backgroundColor: "green",
+            strokeColor:["rgba(0,10,220,0.5)","rgba(220,0,10,0.5)"],
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: json.data.map(city => city.median_income)
         }]
-
   }
 }
 
@@ -20,8 +38,6 @@ const renderChart = data => {
     data: data
   });
 }
-
-
 
 fetch( '/api/cities' )
   .then( response => response.json() )
